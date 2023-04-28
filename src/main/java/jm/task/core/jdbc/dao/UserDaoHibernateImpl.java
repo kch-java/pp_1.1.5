@@ -30,7 +30,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createSQLQuery(CREATE).executeUpdate();
             transaction.commit();
         } catch (HibernateException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to create users table", e);
         }
     }
 
@@ -41,7 +41,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createSQLQuery(DROP).executeUpdate();
             transaction.commit();
         } catch (HibernateException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to drop users table", e);
         }
     }
 
@@ -56,7 +56,7 @@ public class UserDaoHibernateImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            throw new RuntimeException("Failed to save user", e);
         }
     }
 
@@ -71,7 +71,7 @@ public class UserDaoHibernateImpl implements UserDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            throw new RuntimeException("Failed to remove user by id", e);
         }
     }
 
@@ -89,7 +89,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createSQLQuery(CLEAN_ALL).executeUpdate();
             transaction.commit();
         } catch (HibernateException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed to clean users table", e);
         }
     }
 }
